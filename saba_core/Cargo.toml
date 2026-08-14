@@ -1,7 +1,5 @@
-workspace = { members = ["saba_core"] }
-
 [package]
-name = "saba"
+name = "saba_core"
 version = "0.1.0"
 edition = "2021"
 
