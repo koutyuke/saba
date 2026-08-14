@@ -1,0 +1,10 @@
+.direnv/
+result
+result-*
+target/
+build/
+
+
+# Added by cargo
+
+/target
