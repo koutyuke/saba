@@ -36,7 +36,6 @@
           default = pkgs.mkShell {
             packages = [
               rustToolchain
-              fenix.packages.${system}.rust-analyzer
               pkgs.git
               pkgs.gnumake
               pkgs.jq
