@@ -29,7 +29,7 @@
           pkgs = nixpkgs.legacyPackages.${system};
           rustToolchain = fenix.packages.${system}.fromToolchainFile {
             file = ./rust-toolchain.toml;
-            sha256 = "sha256-90k41wADPtnhcOpUB/L4dsQLT/N40GT5WS5B5vmYWwc=";
+            sha256 = "sha256-LQDrWx1txtq4YH8MaJENr7uH1a8W6TwCN464Xjda3Ss=";
           };
         in
         {

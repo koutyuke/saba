@@ -14,7 +14,7 @@
 ## 開発環境
 
 - 開発シェルは [flake.nix](./flake.nix) の `nix develop` で起動する。`direnv` を使う場合は、初回だけ `direnv allow` を実行する。
-- Rust のバージョンは [rust-toolchain.toml](./rust-toolchain.toml) の `nightly-2024-01-01` を正本とする。ツールチェーンを更新する場合は、書籍版・上流実装との互換性を確認し、理由を変更内容へ記録する。
+- Rust のバージョンは [rust-toolchain.toml](./rust-toolchain.toml) の `nightly-2026-08-12` を正本とする。書籍版・上流実装は `nightly-2024-01-01` を使うため、この作業ディレクトリでは `rust-analyzer` と `rust-src` の互換性を保つ目的で意図的に別の nightly を固定している。ツールチェーンを更新する場合は、書籍版・上流実装との互換性を確認し、理由を変更内容へ記録する。
 - Nix の入力を更新した場合は `flake.lock` も更新し、`nix flake check --all-systems` を実行する。
 - Rust や補助ツールをシステムへ直接インストールせず、原則として Nix 開発シェル内のものを使用する。
 
