@@ -1,5 +1,7 @@
 extern crate alloc;
-use alloc::string::String;
+use alloc::format;
+use alloc::string::{String, ToString};
+use alloc::vec::Vec;
 use noli::net::{SocketAddr, TcpStream, lookup_host};
 use saba_core::error::Error;
 use saba_core::http::HttpResponse;
@@ -25,15 +27,15 @@ impl HttpClient {
 
     let mut stream = match TcpStream::connect(socket_add) {
       Ok(stream) => stream,
-      Err(e) => return Err(Error::Network("Failed to connect to TCP stream".to_string())),
+      Err(_e) => return Err(Error::Network("Failed to connect to TCP stream".to_string())),
     };
 
     let mut request = String::new();
-    request.push_str(&format!("GET /{path} HTTP/1.1\n"));
-    request.push_str(&format!("Host: {host}\n"));
-    request.push_str("Accept: text/html\n");
-    request.push_str("Connection: close\n");
-    request.push_str("\n");
+    request.push_str(&format!("GET /{path} HTTP/1.1\r\n"));
+    request.push_str(&format!("Host: {host}\r\n"));
+    request.push_str("Accept: text/html\r\n");
+    request.push_str("Connection: close\r\n");
+    request.push_str("\r\n");
 
     let _bytes_written = match stream.write(request.as_bytes()) {
       Ok(bytes) => bytes,
@@ -42,10 +44,10 @@ impl HttpClient {
 
     let mut recieved = Vec::new();
     loop {
-      let mut buf = [0u8, 4096];
+      let mut buf = [0u8; 4096];
       let bytes_read = match stream.read(&mut buf) {
         Ok(bytes) => bytes,
-        Err(e) => {
+        Err(_e) => {
           return Err(Error::Network(
             "Failed to receive a request from TCP stream".to_string(),
           ));
