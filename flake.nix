@@ -39,6 +39,7 @@
               pkgs.git
               pkgs.gnumake
               pkgs.jq
+              pkgs.qemu
               pkgs.wget
             ];
 
