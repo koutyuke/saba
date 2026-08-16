@@ -31,6 +31,16 @@
             file = ./rust-toolchain.toml;
             sha256 = "sha256-LQDrWx1txtq4YH8MaJENr7uH1a8W6TwCN464Xjda3Ss=";
           };
+          wasabiRustToolchain =
+            (fenix.packages.${system}.fromToolchainName {
+              name = "nightly-2024-01-01";
+              sha256 = "sha256-90k41wADPtnhcOpUB/L4dsQLT/N40GT5WS5B5vmYWwc=";
+            }).withComponents [
+              "cargo"
+              "rustc"
+              "rust-src"
+              "rustfmt"
+            ];
         in
         {
           default = pkgs.mkShell {
@@ -46,6 +56,7 @@
             shellHook = ''
               export CARGO_TERM_COLOR=always
               export RUST_BACKTRACE=1
+              export WASABI_RUST_TOOLCHAIN=${wasabiRustToolchain}
             '';
           };
         }
