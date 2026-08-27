@@ -1,7 +1,6 @@
-workspace = { members = ["net/wasabi", "saba_core"] }
+workspace = { members = ["net/wasabi", "saba_core", "ui/wasabi"] }
 
 [package]
-authors = ["koutyuke"]
 name = "saba"
 version = "0.1.0"
 edition = "2021"
@@ -16,7 +15,8 @@ required-features = ["wasabi"]
 net_wasabi = { path = "./net/wasabi", optional = true }
 noli = { git = "https://github.com/hikalium/wasabi.git", branch = "for_saba", optional = true }
 saba_core = { path = "./saba_core" }
+ui_wasabi = { path = "./ui/wasabi", optional = true }
 
 [features]
 default = ["wasabi"]
-wasabi = ["dep:net_wasabi", "dep:noli"]
+wasabi = ["dep:net_wasabi", "dep:noli", "dep:ui_wasabi"]

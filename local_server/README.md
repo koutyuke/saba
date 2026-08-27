@@ -1,6 +1,13 @@
 # local_server
 
-`local_server` は、Bun と Hono で `index.html` を配信するローカル用の簡易サーバーです。
+`local_server` は、Bun と Hono で HTML や静的ファイルを配信するローカル用の簡易サーバーです。
+
+- `/` は、このディレクトリの `index.html` を返します。
+- それ以外のパスは、`public/` 内の同じ名前のファイルを返します。たとえば `/test1.html` は `public/test1.html`、`/test2.html` は `public/test2.html` に対応します。
+- `/health` は例外で、稼働状態を JSON で返します。
+- 対応するファイルがない場合は `404 Not Found` を返します。
+
+配信したいファイルは `public/` に追加してください。CSS や画像、サブディレクトリ内のファイルも同じルールで配信できます。
 
 ## 起動
 

@@ -29,7 +29,7 @@ fn build_layout_tree(
             target_node = n.borrow().next_sibling().clone();
             layout_object = create_layout_object(&target_node, parent_obj, cssom);
         } else {
-            // もし兄弟ノードがない場合、処理するべきDOMツリーは終了したので、今まで
+            // もし兄弟ノードがない���合、処理するべきDOMツリーは終了したので、今まで
             // 作成したレイアウトツリーを返す
             return layout_object;
         }
@@ -118,6 +118,41 @@ impl LayoutView {
         tree.update_layout();
 
         tree
+    }
+
+    pub fn find_node_by_position(&self, position: (i64, i64)) -> Option<Rc<RefCell<LayoutObject>>> {
+        Self::find_node_by_position_internal(&self.root(), position)
+    }
+
+    fn find_node_by_position_internal(
+        node: &Option<Rc<RefCell<LayoutObject>>>,
+        position: (i64, i64),
+    ) -> Option<Rc<RefCell<LayoutObject>>> {
+        match node {
+            Some(n) => {
+                let first_child = n.borrow().first_child();
+                let result1 = Self::find_node_by_position_internal(&first_child, position);
+                if result1.is_some() {
+                    return result1;
+                }
+
+                let next_sibling = n.borrow().next_sibling();
+                let result2 = Self::find_node_by_position_internal(&next_sibling, position);
+                if result2.is_some() {
+                    return result2;
+                }
+
+                if n.borrow().point().x() <= position.0
+                    && position.0 <= (n.borrow().point().x() + n.borrow().size().width())
+                    && n.borrow().point().y() <= position.1
+                    && position.1 <= (n.borrow().point().y() + n.borrow().size().height())
+                {
+                    return Some(n.clone());
+                }
+                None
+            }
+            None => None,
+        }
     }
 
     fn calculate_node_size(node: &Option<Rc<RefCell<LayoutObject>>>, parent_size: LayoutSize) {
